@@ -4,7 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Engine {
+public class CofeeMashine {
+
+    private List<Coffee> coffeeList = new ArrayList<>();
+
+    public CofeeMashine addCoffee(Coffee name){
+        coffeeList.add(name);
+        return this;
+    }
     public static void printCoffeNameList ( List<Coffee> inputList){
         System.out.println("Доступны следующие напитки:\n");
         for (int i = 0; i < inputList.size(); i++) {
@@ -13,7 +20,7 @@ public class Engine {
     }
 
     public static void priceOfCoffee (int inputNum, List<Coffee> inputList) {
-        System.out.println("Стоимость напитка - " + inputList.get(inputNum).price + " руб");
+        System.out.println("Стоимость напитка - " + inputList.get(inputNum).getPrice() + " руб");
     }
 
     public static List<Integer> inputMoney(){
@@ -38,5 +45,7 @@ public class Engine {
         return false;
     }
 
-
+    public List<Coffee> getCoffeeList() {
+        return coffeeList;
+    }
 }
