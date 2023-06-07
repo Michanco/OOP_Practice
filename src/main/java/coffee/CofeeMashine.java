@@ -35,7 +35,7 @@ public class CofeeMashine {
         return moneyList;
     }
 
-    public static boolean realMoney (int coin){
+    private static boolean realMoney (int coin){
         int[] realMoneyArray = {1, 2, 5, 10, 50, 100, 500};
         for (int el: realMoneyArray) {
             if (coin == el) {
