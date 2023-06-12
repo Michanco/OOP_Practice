@@ -30,4 +30,31 @@ public class Terrarium {
         return aggressors;
     }
 
+    public  List<NumberOfLegs> havingLegs(){
+        List<NumberOfLegs> havingLegs = new ArrayList<>();
+        for (Animal item: terrarium) {
+            if(item instanceof NumberOfLegs) havingLegs.add((NumberOfLegs) item);
+        }
+        return havingLegs;
+    }
+
+    public List<SwimSpeed> swimmers(){
+        List<SwimSpeed> swimmers = new ArrayList<>();
+        for (Animal item: terrarium) {
+            if(item instanceof SwimSpeed) swimmers.add((SwimSpeed) item);
+        }
+        return swimmers;
+    }
+
+    public SwimSpeed fastSwimmer(){
+        List<SwimSpeed> swimmers = swimmers();
+        SwimSpeed fast = swimmers.get(0);
+        for (SwimSpeed item: swimmers) {
+            if (item.getSwimSpeed() > fast.getSwimSpeed()) fast = item;
+        }
+        return fast;
+    }
+
+
+
 }

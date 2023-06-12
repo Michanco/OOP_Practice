@@ -4,14 +4,14 @@ import terrarium.base.Reptiles;
 import terrarium.terrarium.NumberOfLegs;
 import terrarium.terrarium.SwimSpeed;
 
-public class Turtle extends Reptiles implements NumberOfLegs, SwimSpeed {
+public class Lizard extends Reptiles implements NumberOfLegs, SwimSpeed {
     String name;
-    public Turtle(String name) {
+    public Lizard(String name) {
         this.name = name;
     }
     @Override
     public String toString() {
-        return String.format("Черепаха: %s, Отряд: %s ", name, super.toString());
+        return String.format("Ящерица: %s, Отряд: %s ", name, super.toString());
     }
 
     @Override
@@ -21,6 +21,6 @@ public class Turtle extends Reptiles implements NumberOfLegs, SwimSpeed {
 
     @Override
     public int getSwimSpeed() {
-        return 10;
+        return 18;
     }
 }
