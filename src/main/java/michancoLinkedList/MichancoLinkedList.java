@@ -40,8 +40,9 @@ public  class MichancoLinkedList implements Iterable<Cell>{
         System.out.println(masterList[1].toString());
     }
 
-    public void getWight(){
-        System.out.println(memoryMap.size());
+    public int getWight(){
+        int wight = memoryMap.size();
+        return wight;
     }
 
     public void addCell(Object content){
@@ -93,7 +94,6 @@ public  class MichancoLinkedList implements Iterable<Cell>{
                 return temp.content;
             }
         }
-
     }
     public void removeCellForPosition ( int position){
         int i = 0;
@@ -137,13 +137,13 @@ public  class MichancoLinkedList implements Iterable<Cell>{
             Cell temp = masterList[0];
             @Override
             public boolean hasNext() {
-                temp = memoryMap.get(temp.nextHash);
                 return temp.nextHash != 0;
             }
 
             @Override
             public Cell next() {
-                return memoryMap.get(temp.nextHash);
+                temp = memoryMap.get(temp.nextHash);
+                return temp;
             }
         };
     }
