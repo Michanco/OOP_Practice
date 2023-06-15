@@ -1,7 +1,5 @@
 package michancoLinkedList;
 
-import lesson3StandartInlerfaces.User;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
