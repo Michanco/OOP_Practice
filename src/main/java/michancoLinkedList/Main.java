@@ -5,8 +5,6 @@ import java.util.Objects;
 
 public class Main {
     public static void main(String[] args) {
-        Cell cell1 = new Cell("Hello world");
-        System.out.println(cell1);
 
         MichancoLinkedList master = new MichancoLinkedList();
         master.addCell(4.34);
@@ -17,8 +15,13 @@ public class Main {
         master.getWight();
         master.printMem();
         master.printMLL();
-        Object newO = master.getElForPosition(5);
+        Object newO = master.getCellForPosition(2);
         System.out.println(newO);
+        master.removeCellForPosition(0);
+        master.printMem();
+        master.printMLL();
+        Object new1 = master.getCellForPosition(2);
+        System.out.println(new1);
 
     }
 }

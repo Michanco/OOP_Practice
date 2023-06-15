@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 public  class MichancoLinkedList implements Iterable<Cell>{
-    public int wight = 0;
     private Cell[] masterList = new Cell[2];
     Map<Integer, Cell> memoryMap = new HashMap<>();
     public void printMem(){
@@ -20,7 +19,6 @@ public  class MichancoLinkedList implements Iterable<Cell>{
         masterList[0] = new Cell(first);
         masterList[0].mainHash = masterList[0].hashCode();
         memoryMap.put(masterList[0].mainHash, masterList[0]);
-        wight += 1;
     }
     public MichancoLinkedList(Object first, Object last) {
         masterList[0] = new Cell(first);
@@ -31,7 +29,6 @@ public  class MichancoLinkedList implements Iterable<Cell>{
         masterList[1].mainHash = masterList[1].hashCode();
         masterList[1].prewHash = masterList[0].mainHash;
         memoryMap.put(masterList[1].mainHash, masterList[1]);
-        wight += 2;
 
     }
 
@@ -46,11 +43,10 @@ public  class MichancoLinkedList implements Iterable<Cell>{
     }
 
     public void getWight(){
-        System.out.println(wight);
+        System.out.println(memoryMap.size());
     }
 
     public void addCell(Object content){
-        wight += 1;
         Cell newCell = new Cell(content);
         newCell.mainHash = newCell.hashCode();
         if (masterList[0] == null){
@@ -73,30 +69,57 @@ public  class MichancoLinkedList implements Iterable<Cell>{
 
     }
 
-    public Object getElForPosition(int position){
+    public Object getCellForPosition(int position){
         int i = 0;
         if (position == 0) return masterList[0].content;
-        else if (position == wight - 1) return masterList[1].content;
-        else if (position > wight - 1) {
+        else if (position == memoryMap.size() - 1) return masterList[1].content;
+        else if (position > memoryMap.size() - 1 || position < 0) {
             System.out.println("Position is out of range");
             return null;
         }
         else {
             Cell temp = masterList[0];
-            while ( i != position){
+            while ( i < position){
                 temp = memoryMap.get(temp.nextHash);
                 i++;
             } return temp.content;
         }
 
     }
+    public void removeCellForPosition ( int position){
+        int i = 0;
+        if (position == 0) {
+            Cell temp = memoryMap.get(masterList[0].nextHash);
+            temp.prewHash = 0;
+            memoryMap.remove(masterList[0].mainHash);
+            masterList[0] = temp;
+        } else if (position == memoryMap.size() - 1) {
+            Cell temp = memoryMap.get(masterList[1].prewHash);
+            temp.nextHash = 0;
+            memoryMap.remove(masterList[1].mainHash);
+            masterList[1] = temp;
+        } else if (position > memoryMap.size() - 1 || position < 0) {
+            System.out.println("Position is out of range");
+        } else {
+            Cell temp = masterList[0];
+            while ( i < position){
+                temp = memoryMap.get(temp.nextHash);
+                i++;
+            }
+            memoryMap.get(temp.prewHash).nextHash = memoryMap.get(temp.nextHash).mainHash;
+            memoryMap.get(temp.nextHash).prewHash = memoryMap.get(temp.prewHash).mainHash;
+            memoryMap.remove(temp.mainHash);
+        }
+
+    }
 
     @Override
     public Iterator<Cell> iterator() {
-        Cell temp = masterList[0];
         return new Iterator<Cell>() {
+            Cell temp = masterList[0];
             @Override
             public boolean hasNext() {
+                temp = memoryMap.get(temp.nextHash);
                 return temp.nextHash != 0;
             }
 
