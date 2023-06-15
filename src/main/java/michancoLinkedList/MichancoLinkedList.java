@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 public  class MichancoLinkedList implements Iterable<Cell>{
-    private Cell[] masterList = new Cell[2];
+    private final Cell[] masterList = new Cell[2];
     Map<Integer, Cell> memoryMap = new HashMap<>();
     public void printMem(){
         System.out.println(memoryMap.values());
@@ -76,11 +76,22 @@ public  class MichancoLinkedList implements Iterable<Cell>{
             return null;
         }
         else {
-            Cell temp = masterList[0];
-            while ( i < position){
-                temp = memoryMap.get(temp.nextHash);
-                i++;
-            } return temp.content;
+            if (position <= memoryMap.size()/2) {
+                Cell temp = masterList[0];
+                while (i < position) {
+                    temp = memoryMap.get(temp.nextHash);
+                    i++;
+                }
+                return temp.content;
+            } else {
+                i = memoryMap.size() -1;
+                Cell temp = masterList[1];
+                while (i > position) {
+                    temp = memoryMap.get(temp.prewHash);
+                    i--;
+                }
+                return temp.content;
+            }
         }
 
     }
@@ -99,14 +110,23 @@ public  class MichancoLinkedList implements Iterable<Cell>{
         } else if (position > memoryMap.size() - 1 || position < 0) {
             System.out.println("Position is out of range");
         } else {
-            Cell temp = masterList[0];
-            while ( i < position){
-                temp = memoryMap.get(temp.nextHash);
-                i++;
+            if (position <= memoryMap.size()/2) {
+                Cell temp = masterList[0];
+                while (i < position) {
+                    temp = memoryMap.get(temp.nextHash);
+                    i++;
+                }
+            } else {
+                i = memoryMap.size() - 1;
+                Cell temp = masterList[1];
+                while (i > position) {
+                    temp = memoryMap.get(temp.prewHash);
+                    i--;
+                }
+                memoryMap.get(temp.prewHash).nextHash = memoryMap.get(temp.nextHash).mainHash;
+                memoryMap.get(temp.nextHash).prewHash = memoryMap.get(temp.prewHash).mainHash;
+                memoryMap.remove(temp.mainHash);
             }
-            memoryMap.get(temp.prewHash).nextHash = memoryMap.get(temp.nextHash).mainHash;
-            memoryMap.get(temp.nextHash).prewHash = memoryMap.get(temp.prewHash).mainHash;
-            memoryMap.remove(temp.mainHash);
         }
 
     }
