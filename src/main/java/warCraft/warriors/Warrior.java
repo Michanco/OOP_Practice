@@ -30,6 +30,7 @@ public abstract class Warrior <W extends Weapon, A extends Armor>{
     public W getWeapon() {
         return weapon;
     }
+    public A getArmor() {return armor; }
 
     public void setHealthPoint(int healthPoint) {
         this.healthPoint = healthPoint;

@@ -44,6 +44,13 @@ public class Team <T extends Warrior> implements Iterable<T>{
         } return teamAttack;
     }
 
+    public int minTeamShield (){
+        int minTeamShield = 0;
+        for (T t: this) {
+            if (minTeamShield > t.getArmor().getShield()) minTeamShield = t.getArmor().getShield();
+        } return minTeamShield;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
